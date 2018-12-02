@@ -267,13 +267,10 @@ public class N_puzzle_hamming {
         if (m % 2 == 1) {
             canbesolved = (inversions % 2 == 0);
         }
-
         else{
             canbesolved = ((inversions + zeropos_i) % 2 == 1);
         }
-
         if (canbesolved) {
-
             Board_State_by_hamming initstate = new Board_State_by_hamming(init_board, m, n, goal_board, blanksign);
             Board_State_by_hamming goalstate = new Board_State_by_hamming(goal_board, m, n, goal_board, blanksign);
             Board_State_by_hamming ham = a_star_serach_by_hamming(initstate, goalstate);

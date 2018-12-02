@@ -215,31 +215,68 @@ public class N_puzzle_linear_conflict {
         n = in.nextInt();
         init_board = new int[m][n];
         goal_board = new int[m][n];
+        int init_nums[];
+        init_nums = new int[(m * n)];
+        int pos = 0;
+        int zeropos_i = 0;
+        System.out.println("Blank sign : ");
+        blanksign = in.nextInt();
         System.out.println("Start board : ");
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 init_board[i][j] = in.nextInt();
+                init_nums[pos] = init_board[i][j];
+                pos++;
+                if (init_board[i][j] == blanksign) {
+                    zeropos_i = i;
+                }
             }
         }
+        pos = 0;
+        HashMap<Integer, Integer> goalmap;
+        goalmap = new HashMap<>();
         //System.out.println("");
         System.out.println("Goal board : ");
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 goal_board[i][j] = in.nextInt();
+                goalmap.put(goal_board[i][j], pos);
+                pos++;
             }
         }
 
-        System.out.println("Blank sign : ");
-        blanksign = in.nextInt();
         System.out.println("");
         System.out.println("---------- BY LINEAR_CONFLICT DISTANCE ---------");
-        Board_State_by_linear_conflict initstate = new Board_State_by_linear_conflict(init_board, m, n, goal_board, blanksign);
-        Board_State_by_linear_conflict goalstate = new Board_State_by_linear_conflict(goal_board, m, n, goal_board, blanksign);
-        Board_State_by_linear_conflict lin = a_star_serach_by_linear_conflict(initstate, goalstate);
-        System.out.println("Total Move(s) : " + lin.f);
-        System.out.println("Node Expanded : " + linear_conflict_node_expanded);
-        System.out.println("Node Explored : " + linear_conflict_node_explored + "\n");
-        linear_conflict_path(initstate, lin);
+        int inversions = 0;
+        for (int i = 0; i < (m * n); i++) {
+            int num1 = init_nums[i];
+            int num1_pos_ingoal = goalmap.get(num1);
+            for (int j = i + 1; j < (m * n); j++) {
+                int num2 = init_nums[j];
+                int num2_pos_ingoal = goalmap.get(num2);
+                if ((num1 != 0) && (num2 != 0) && (num2_pos_ingoal < num1_pos_ingoal)) {
+                    inversions++;
+                }
+            }
+        }
+
+        Boolean canbesolved;
+        if (m % 2 == 1) {
+            canbesolved = (inversions % 2 == 0);
+        } else {
+            canbesolved = ((inversions + zeropos_i) % 2 == 1);
+        }
+        if (canbesolved) {
+            Board_State_by_linear_conflict initstate = new Board_State_by_linear_conflict(init_board, m, n, goal_board, blanksign);
+            Board_State_by_linear_conflict goalstate = new Board_State_by_linear_conflict(goal_board, m, n, goal_board, blanksign);
+            Board_State_by_linear_conflict lin = a_star_serach_by_linear_conflict(initstate, goalstate);
+            System.out.println("Total Move(s) : " + lin.f);
+            System.out.println("Node Expanded : " + linear_conflict_node_expanded);
+            System.out.println("Node Explored : " + linear_conflict_node_explored + "\n");
+            linear_conflict_path(initstate, lin);
+        } else {
+            System.out.println("Can't be solved.");
+        }
     }
 
 }
