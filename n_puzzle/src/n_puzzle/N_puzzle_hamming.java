@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class N_puzzle_hamming {
     
     public static int hamming_node_expanded;
+    public static int hamming_node_explored;
     public static int blanksign;
     
     public static String value_to_key(Board_State_by_hamming st){
@@ -132,25 +133,45 @@ public class N_puzzle_hamming {
             left = Hamming_blank_slide_left(cur_state, goal);
             right = Hamming_blank_slide_right(cur_state, goal);
             
-            if(up != null){
+            if (up != null) {
+                hamming_node_explored++;
                 up.parent_state = cur_state;
                 up.set_f(cost);
-                q.add(up);
+                String key = value_to_key(initial);
+                if (!map.containsKey(key)) {
+                    q.add(up);
+                    map.put(key, up);
+                }
             }
-            if(down != null){
+            if (down != null) {
+                hamming_node_explored++;
                 down.parent_state = cur_state;
                 down.set_f(cost);
-                q.add(down);
+                String key = value_to_key(initial);
+                if (!map.containsKey(key)) {
+                    q.add(down);
+                    map.put(key, down);
+                }
             }
-            if(left != null){
+            if (left != null) {
+                hamming_node_explored++;
                 left.parent_state = cur_state;
                 left.set_f(cost);
-                q.add(left);
+                String key = value_to_key(initial);
+                if (!map.containsKey(key)) {
+                    q.add(left);
+                    map.put(key, left);
+                }
             }
-            if(right != null){
+            if (right != null) {
+                hamming_node_explored++;
                 right.parent_state = cur_state;
                 right.set_f(cost);
-                q.add(right);
+                String key = value_to_key(initial);
+                if (!map.containsKey(key)) {
+                    q.add(right);
+                    map.put(key, right);
+                }
             }
         }
         return null;
@@ -201,7 +222,9 @@ public class N_puzzle_hamming {
         Board_State_by_hamming initstate = new Board_State_by_hamming(init_board, m, n, goal_board, blanksign);
         Board_State_by_hamming goalstate = new Board_State_by_hamming(goal_board, m, n, goal_board, blanksign);
         Board_State_by_hamming ham = a_star_serach_by_hamming(initstate, goalstate);
-        System.out.println("Total Move(s) : " + ham.f + "\n");
+        System.out.println("Total Move(s) : " + ham.f);
+        System.out.println("Node Expanded : " + hamming_node_expanded);
+        System.out.println("Node Explored : " + hamming_node_explored + "\n");
         Hamming_path(initstate, ham);
     }
     

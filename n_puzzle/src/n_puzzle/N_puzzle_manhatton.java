@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class N_puzzle_manhatton {
     
     public static int manhatton_node_expanded;
+    public static int manhatton_node_explored;
     public static int blanksign;
     
     public static String value_to_key(Board_State_by_manhatton st){
@@ -132,25 +133,45 @@ public class N_puzzle_manhatton {
             left = manhatton_blank_slide_left(cur_state, goal);
             right = manhatton_blank_slide_right(cur_state, goal);
             
-            if(up != null){
+            if (up != null) {
+                manhatton_node_explored++;
                 up.parent_state = cur_state;
                 up.set_f(cost);
-                q.add(up);
+                String key = value_to_key(initial);
+                if (!map.containsKey(key)) {
+                    q.add(up);
+                    map.put(key, up);
+                }
             }
-            if(down != null){
+            if (down != null) {
+                manhatton_node_explored++;
                 down.parent_state = cur_state;
                 down.set_f(cost);
-                q.add(down);
+                String key = value_to_key(initial);
+                if (!map.containsKey(key)) {
+                    q.add(down);
+                    map.put(key, down);
+                }
             }
-            if(left != null){
+            if (left != null) {
+                manhatton_node_explored++;
                 left.parent_state = cur_state;
                 left.set_f(cost);
-                q.add(left);
+                String key = value_to_key(initial);
+                if (!map.containsKey(key)) {
+                    q.add(left);
+                    map.put(key, left);
+                }
             }
-            if(right != null){
+            if (right != null) {
+                manhatton_node_explored++;
                 right.parent_state = cur_state;
                 right.set_f(cost);
-                q.add(right);
+                String key = value_to_key(initial);
+                if (!map.containsKey(key)) {
+                    q.add(right);
+                    map.put(key, right);
+                }
             }
         }
         return null;
@@ -201,7 +222,9 @@ public class N_puzzle_manhatton {
         Board_State_by_manhatton initstate = new Board_State_by_manhatton(init_board, m, n, goal_board, blanksign);
         Board_State_by_manhatton goalstate = new Board_State_by_manhatton(goal_board, m, n, goal_board, blanksign);
         Board_State_by_manhatton man = a_star_serach_by_manhatton(initstate, goalstate);
-        System.out.println("Total Move(s) : " + man.f + "\n");
+        System.out.println("Total Move(s) : " + man.f);
+        System.out.println("Node Expanded : " + manhatton_node_expanded);
+        System.out.println("Node Explored : " + manhatton_node_explored + "\n");
         manhatton_path(initstate, man);
     }
     
