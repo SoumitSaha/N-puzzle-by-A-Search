@@ -136,8 +136,8 @@ public class N_puzzle_manhatton {
             if (up != null) {
                 manhatton_node_explored++;
                 up.parent_state = cur_state;
-                up.set_f(cost);
-                String key = value_to_key(initial);
+                up.set_f(cur_state.g + 1);
+                String key = value_to_key(up);
                 if (!map.containsKey(key)) {
                     q.add(up);
                     map.put(key, up);
@@ -146,8 +146,8 @@ public class N_puzzle_manhatton {
             if (down != null) {
                 manhatton_node_explored++;
                 down.parent_state = cur_state;
-                down.set_f(cost);
-                String key = value_to_key(initial);
+                down.set_f(cur_state.g + 1);
+                String key = value_to_key(down);
                 if (!map.containsKey(key)) {
                     q.add(down);
                     map.put(key, down);
@@ -156,8 +156,8 @@ public class N_puzzle_manhatton {
             if (left != null) {
                 manhatton_node_explored++;
                 left.parent_state = cur_state;
-                left.set_f(cost);
-                String key = value_to_key(initial);
+                left.set_f(cur_state.g + 1);
+                String key = value_to_key(left);
                 if (!map.containsKey(key)) {
                     q.add(left);
                     map.put(key, left);
@@ -166,8 +166,8 @@ public class N_puzzle_manhatton {
             if (right != null) {
                 manhatton_node_explored++;
                 right.parent_state = cur_state;
-                right.set_f(cost);
-                String key = value_to_key(initial);
+                right.set_f(cur_state.g + 1);
+                String key = value_to_key(right);
                 if (!map.containsKey(key)) {
                     q.add(right);
                     map.put(key, right);

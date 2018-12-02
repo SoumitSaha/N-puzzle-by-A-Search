@@ -119,6 +119,7 @@ public class N_puzzle_linear_conflict {
         while (!q.isEmpty()) {
 
             Board_State_by_linear_conflict cur_state = q.remove();
+            //System.out.println("Popped, f : " + cur_state.f + "\n" + cur_state);
             linear_conflict_node_expanded++;
             cost++;
 
@@ -147,40 +148,44 @@ public class N_puzzle_linear_conflict {
             if (up != null) {
                 linear_conflict_node_explored++;
                 up.parent_state = cur_state;
-                up.set_f(cost);
-                String key = value_to_key(initial);
+                up.set_f(cur_state.g + 1);
+                String key = value_to_key(up);
                 if (!map.containsKey(key)) {
                     q.add(up);
+                    //System.out.println("adding up, f : " + up.f + "\n" + up);
                     map.put(key, up);
                 }
             }
             if (down != null) {
                 linear_conflict_node_explored++;
                 down.parent_state = cur_state;
-                down.set_f(cost);
-                String key = value_to_key(initial);
+                down.set_f(cur_state.g + 1);
+                String key = value_to_key(down);
                 if (!map.containsKey(key)) {
                     q.add(down);
+                    //System.out.println("adding down, f : " + down.f + "\n" + down);
                     map.put(key, down);
                 }
             }
             if (left != null) {
                 linear_conflict_node_explored++;
                 left.parent_state = cur_state;
-                left.set_f(cost);
-                String key = value_to_key(initial);
+                left.set_f(cur_state.g + 1);
+                String key = value_to_key(left);
                 if (!map.containsKey(key)) {
                     q.add(left);
+                    //System.out.println("adding left, f : " + left.f + "\n" + left);
                     map.put(key, left);
                 }
             }
             if (right != null) {
                 linear_conflict_node_explored++;
                 right.parent_state = cur_state;
-                right.set_f(cost);
-                String key = value_to_key(initial);
+                right.set_f(cur_state.g + 1);
+                String key = value_to_key(right);
                 if (!map.containsKey(key)) {
                     q.add(right);
+                    //System.out.println("adding right, f : " + right.f + "\n" + right);
                     map.put(key, right);
                 }
             }
