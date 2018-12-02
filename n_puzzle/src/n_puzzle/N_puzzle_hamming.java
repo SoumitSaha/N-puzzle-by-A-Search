@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class N_puzzle {
+public class N_puzzle_hamming {
     
     public static int hamming_node_expanded;
     public static int blanksign;
     
-    public static String value_to_key(Board_State_by_hamming st){            // takes a state(2 banks' missionaries 
+    public static String value_to_key(Board_State_by_hamming st){
         String str = "";
         for (int i = 0; i < st.row; i++) {
             for (int j = 0; j < st.col; j++) {
@@ -19,8 +19,8 @@ public class N_puzzle {
         return str;
     }
     
-    public static Blankpos getBlankpos(Board_State_by_hamming board){
-        Blankpos blank = new Blankpos();
+    public static Num_pos Hamming_getBlankpos(Board_State_by_hamming board){
+        Num_pos blank = new Num_pos();
         Boolean blankset = false;
         for (int i = 0; i < board.row; i++) {
             for (int j = 0; j < board.col; j++) {
@@ -36,8 +36,8 @@ public class N_puzzle {
         return blank;
     } 
     
-    public static Board_State_by_hamming blank_slide_up(Board_State_by_hamming board, Board_State_by_hamming goal){
-        Blankpos blank = getBlankpos(board);
+    public static Board_State_by_hamming hamming_blank_slide_up(Board_State_by_hamming board, Board_State_by_hamming goal){
+        Num_pos blank = Hamming_getBlankpos(board);
         if(blank.i == 0) return null;
         else{
             int temp[][] = new int [board.row][board.col];
@@ -52,8 +52,8 @@ public class N_puzzle {
         }
     }
     
-    public static Board_State_by_hamming blank_slide_down(Board_State_by_hamming board, Board_State_by_hamming goal){
-        Blankpos blank = getBlankpos(board);
+    public static Board_State_by_hamming Hamming_blank_slide_down(Board_State_by_hamming board, Board_State_by_hamming goal){
+        Num_pos blank = Hamming_getBlankpos(board);
         if(blank.i == (board.row - 1)) return null;
         else{
             int temp[][] = new int [board.row][board.col];
@@ -68,8 +68,8 @@ public class N_puzzle {
         }
     }
     
-    public static Board_State_by_hamming blank_slide_left(Board_State_by_hamming board, Board_State_by_hamming goal){
-        Blankpos blank = getBlankpos(board);
+    public static Board_State_by_hamming Hamming_blank_slide_left(Board_State_by_hamming board, Board_State_by_hamming goal){
+        Num_pos blank = Hamming_getBlankpos(board);
         if(blank.j == 0) return null;
         else{
             int temp[][] = new int [board.row][board.col];
@@ -84,8 +84,8 @@ public class N_puzzle {
         }
     }
     
-    public static Board_State_by_hamming blank_slide_right(Board_State_by_hamming board, Board_State_by_hamming goal){
-        Blankpos blank = getBlankpos(board);
+    public static Board_State_by_hamming Hamming_blank_slide_right(Board_State_by_hamming board, Board_State_by_hamming goal){
+        Num_pos blank = Hamming_getBlankpos(board);
         if(blank.j == (board.col - 1)) return null;
         else{
             int temp[][] = new int [board.row][board.col];
@@ -127,10 +127,10 @@ public class N_puzzle {
             if(isSolvable) return cur_state;
             
             Board_State_by_hamming up, down, left, right;
-            up = blank_slide_up(cur_state, goal);
-            down = blank_slide_down(cur_state, goal);
-            left = blank_slide_left(cur_state, goal);
-            right = blank_slide_right(cur_state, goal);
+            up = hamming_blank_slide_up(cur_state, goal);
+            down = Hamming_blank_slide_down(cur_state, goal);
+            left = Hamming_blank_slide_left(cur_state, goal);
+            right = Hamming_blank_slide_right(cur_state, goal);
             
             if(up != null){
                 up.parent_state = cur_state;
@@ -156,7 +156,7 @@ public class N_puzzle {
         return null;
     }
     
-    public static void path(Board_State_by_hamming start, Board_State_by_hamming end){
+    public static void Hamming_path(Board_State_by_hamming start, Board_State_by_hamming end){
         if(end == start){
             System.out.println(start);
         }
@@ -164,7 +164,7 @@ public class N_puzzle {
             System.out.println("No path.");
         }
         else{
-            path(start, end.parent_state);
+            Hamming_path(start, end.parent_state);
             System.out.println(end);
         }
     }
@@ -202,7 +202,7 @@ public class N_puzzle {
         Board_State_by_hamming goalstate = new Board_State_by_hamming(goal_board, m, n, goal_board, blanksign);
         Board_State_by_hamming ham = a_star_serach_by_hamming(initstate, goalstate);
         System.out.println("Total Move(s) : " + ham.f + "\n");
-        path(initstate, ham);
+        Hamming_path(initstate, ham);
     }
     
 }
