@@ -93,8 +93,9 @@ public class Board_State_by_linear_conflict implements Comparable<Board_State_by
                 for (int k = j + 1; k < col; k++) {
                     Num_pos num1 = getnumberposingoal(state[i][j]);
                     Num_pos num2 = getnumberposingoal(state[i][k]);
-                    if((state[i][j] != 0) && (state[i][k] != 0) && (num1.i == i) &&(num2.i == i) && (num2.j < num1.j)){
+                    if((state[i][j] != blank) && (state[i][k] != blank) && (num1.i == i) &&(num2.i == i) && (num2.j < num1.j)){
                         conflict++;
+                        //System.out.println("row Con in g : " + g + " " + state[num1.i][num1.j]  + " " + state[num2.i][num2.j]);
                     }
                 }
             }
@@ -105,8 +106,9 @@ public class Board_State_by_linear_conflict implements Comparable<Board_State_by
                 for (int k = j + 1; k < row; k++) {
                     Num_pos num1 = getnumberposingoal(state[j][i]);
                     Num_pos num2 = getnumberposingoal(state[k][i]);
-                    if((state[j][i] != 0) && (state[k][i] != 0) && (num1.j == j) &&(num2.j == j) && (num2.i < num1.i)){
+                    if((state[j][i] != blank) && (state[k][i] != blank) && (num1.j == i) &&(num2.j == i) && (num2.i < num1.i)){
                         conflict++;
+                        //System.out.println("col Con in g : " + g + " " + state[num1.i][num1.j]  + " " + state[num2.i][num2.j]);
                     }
                 }
             }
@@ -124,7 +126,7 @@ public class Board_State_by_linear_conflict implements Comparable<Board_State_by
             }
             str += "\n";
         }
-        //str += "g : " + g + " h : " + h + " f : " + f + "\n";
+        str += "g : " + g + " h : " + h + " f : " + f + " MAN : " + man_dist() + "\n";
         return String.format(str);
     }
 

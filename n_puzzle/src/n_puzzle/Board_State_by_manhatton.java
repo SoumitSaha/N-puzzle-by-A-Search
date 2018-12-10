@@ -75,7 +75,7 @@ public class Board_State_by_manhatton implements Comparable<Board_State_by_manha
             }
             str += "\n";
         }
-        //str += "\n";
+        str += "g : " + g + " h : " + h + " f : " + f + "\n";
         return String.format(str);
     }
 

@@ -110,8 +110,8 @@ public class N_puzzle_linear_conflict {
     public static Board_State_by_linear_conflict a_star_serach_by_linear_conflict(Board_State_by_linear_conflict initial, Board_State_by_linear_conflict goal) {
         HashMap<String, Board_State_by_linear_conflict> map = new HashMap<>();
         PriorityQueue<Board_State_by_linear_conflict> q = new PriorityQueue<>();
-        int cost = 0;
-        initial.set_f(cost);
+        
+        initial.set_f(0);
         q.add(initial);
         String cur_state_key = value_to_key(initial);
         map.put(cur_state_key, initial);
@@ -121,7 +121,8 @@ public class N_puzzle_linear_conflict {
             Board_State_by_linear_conflict cur_state = q.remove();
             //System.out.println("Popped, f : " + cur_state.f + "\n" + cur_state);
             linear_conflict_node_expanded++;
-            cost++;
+            //String cur_state_key = value_to_key(cur_state);
+            //map.put(cur_state_key, cur_state);
 
             Boolean isSolvable = true;
             for (int i = 0; i < cur_state.row; i++) {
@@ -269,10 +270,13 @@ public class N_puzzle_linear_conflict {
         if (canbesolved) {
             Board_State_by_linear_conflict initstate = new Board_State_by_linear_conflict(init_board, m, n, goal_board, blanksign);
             Board_State_by_linear_conflict goalstate = new Board_State_by_linear_conflict(goal_board, m, n, goal_board, blanksign);
+            long init_time = System.currentTimeMillis();
             Board_State_by_linear_conflict lin = a_star_serach_by_linear_conflict(initstate, goalstate);
+            init_time = System.currentTimeMillis() - init_time;
             System.out.println("Total Move(s) : " + lin.f);
             System.out.println("Node Expanded : " + linear_conflict_node_expanded);
-            System.out.println("Node Explored : " + linear_conflict_node_explored + "\n");
+            System.out.println("Node Explored : " + linear_conflict_node_explored);
+            //System.out.println("Time in mili seconds: " + init_time + "\n");
             linear_conflict_path(initstate, lin);
         } else {
             System.out.println("Can't be solved.");

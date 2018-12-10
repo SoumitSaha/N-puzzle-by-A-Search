@@ -110,18 +110,18 @@ public class N_puzzle_manhatton {
     public static Board_State_by_manhatton a_star_serach_by_manhatton(Board_State_by_manhatton initial, Board_State_by_manhatton goal) {
         HashMap<String, Board_State_by_manhatton> map = new HashMap<>();
         PriorityQueue<Board_State_by_manhatton> q = new PriorityQueue<>();
-        int cost = 0;
-        initial.set_f(cost);
+        
+        initial.set_f(0);
         q.add(initial);
 
         while (!q.isEmpty()) {
 
             Board_State_by_manhatton cur_state = q.remove();
             manhatton_node_expanded++;
-            cost++;
             String cur_state_key = value_to_key(cur_state);
             map.put(cur_state_key, cur_state);
             Boolean isSolvable = true;
+            //System.out.println("Popped, f : " + cur_state.f + "\n" + cur_state);
             for (int i = 0; i < cur_state.row; i++) {
                 for (int j = 0; j < cur_state.col; j++) {
                     if (cur_state.state[i][j] != goal.state[i][j]) {
@@ -150,7 +150,8 @@ public class N_puzzle_manhatton {
                 String key = value_to_key(up);
                 if (!map.containsKey(key)) {
                     q.add(up);
-                    map.put(key, up);
+                    //System.out.println("adding up, f : " + up.f + "\n" + up);
+                    //map.put(key, up);
                 }
             }
             if (down != null) {
@@ -160,7 +161,8 @@ public class N_puzzle_manhatton {
                 String key = value_to_key(down);
                 if (!map.containsKey(key)) {
                     q.add(down);
-                    map.put(key, down);
+                    //System.out.println("adding down, f : " + down.f + "\n" + down);
+                    //map.put(key, down);
                 }
             }
             if (left != null) {
@@ -170,7 +172,8 @@ public class N_puzzle_manhatton {
                 String key = value_to_key(left);
                 if (!map.containsKey(key)) {
                     q.add(left);
-                    map.put(key, left);
+                    //System.out.println("adding left, f : " + left.f + "\n" + left);
+                    //map.put(key, left);
                 }
             }
             if (right != null) {
@@ -180,7 +183,8 @@ public class N_puzzle_manhatton {
                 String key = value_to_key(right);
                 if (!map.containsKey(key)) {
                     q.add(right);
-                    map.put(key, right);
+                    //System.out.println("adding right, f : " + right.f + "\n" + right);
+                    //map.put(key, right);
                 }
             }
         }
@@ -263,10 +267,13 @@ public class N_puzzle_manhatton {
         if (canbesolved) {
             Board_State_by_manhatton initstate = new Board_State_by_manhatton(init_board, m, n, goal_board, blanksign);
             Board_State_by_manhatton goalstate = new Board_State_by_manhatton(goal_board, m, n, goal_board, blanksign);
+            long init_time = System.currentTimeMillis();
             Board_State_by_manhatton man = a_star_serach_by_manhatton(initstate, goalstate);
+            init_time = System.currentTimeMillis() - init_time;
             System.out.println("Total Move(s) : " + man.f);
             System.out.println("Node Expanded : " + manhatton_node_expanded);
-            System.out.println("Node Explored : " + manhatton_node_explored + "\n");
+            System.out.println("Node Explored : " + manhatton_node_explored);
+            //System.out.println("Time in mili seconds: " + init_time + "\n");
             manhatton_path(initstate, man);
         } else {
             System.out.println("Can't be solved.");

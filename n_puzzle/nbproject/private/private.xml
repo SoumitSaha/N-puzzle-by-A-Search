@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Education/Level-3%20Term-2%20Files/My%20folder/Sessional/CSE%20304%20AI/Offline%202/Implementation/n_puzzle/src/n_puzzle/N_puzzle.java</file>
+            <file>file:/D:/Education/Level-3%20Term-2%20Files/My%20folder/Sessional/CSE%20304%20AI/Offline%202/Implementation/n_puzzle/src/n_puzzle/N_puzzle_manhatton.java</file>
+            <file>file:/D:/Education/Level-3%20Term-2%20Files/My%20folder/Sessional/CSE%20304%20AI/Offline%202/Implementation/n_puzzle/src/n_puzzle/Board_State_by_manhatton.java</file>
+            <file>file:/D:/Education/Level-3%20Term-2%20Files/My%20folder/Sessional/CSE%20304%20AI/Offline%202/Implementation/n_puzzle/src/n_puzzle/Board_State_by_linear_conflict.java</file>
+            <file>file:/D:/Education/Level-3%20Term-2%20Files/My%20folder/Sessional/CSE%20304%20AI/Offline%202/Implementation/n_puzzle/src/n_puzzle/N_puzzle_hamming.java</file>
             <file>file:/D:/Education/Level-3%20Term-2%20Files/My%20folder/Sessional/CSE%20304%20AI/Offline%202/Implementation/n_puzzle/src/n_puzzle/Board_State_by_hamming.java</file>
+            <file>file:/D:/Education/Level-3%20Term-2%20Files/My%20folder/Sessional/CSE%20304%20AI/Offline%202/Implementation/n_puzzle/src/n_puzzle/Num_pos.java</file>
+            <file>file:/D:/Education/Level-3%20Term-2%20Files/My%20folder/Sessional/CSE%20304%20AI/Offline%202/Implementation/n_puzzle/src/n_puzzle/N_puzzle_linear_conflict.java</file>
         </group>
     </open-files>
 </project-private>

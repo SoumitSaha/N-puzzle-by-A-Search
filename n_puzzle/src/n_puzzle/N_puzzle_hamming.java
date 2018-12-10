@@ -110,15 +110,14 @@ public class N_puzzle_hamming {
     public static Board_State_by_hamming a_star_serach_by_hamming(Board_State_by_hamming initial, Board_State_by_hamming goal) {
         HashMap<String, Board_State_by_hamming> map = new HashMap<>();
         PriorityQueue<Board_State_by_hamming> q = new PriorityQueue<>();
-        int cost = 0;
-        initial.set_f(cost);
+        
+        initial.set_f(0);
         q.add(initial);
 
         while (!q.isEmpty()) {
 
             Board_State_by_hamming cur_state = q.remove();
             hamming_node_expanded++;
-            cost++;
             String cur_state_key = value_to_key(cur_state);
             map.put(cur_state_key, cur_state);
             Boolean isSolvable = true;
@@ -146,49 +145,41 @@ public class N_puzzle_hamming {
             if (up != null) {
                 String key = value_to_key(up);
                 if (!map.containsKey(key)) {
-                hamming_node_explored++;
-                up.parent_state = cur_state;
-                up.set_f(cur_state.g + 1);
-                
-                
+                    hamming_node_explored++;
+                    up.parent_state = cur_state;
+                    up.set_f(cur_state.g + 1);
                     q.add(up);
-                    map.put(key, up);
+                    //map.put(key, up);
                 }
             }
             if (down != null) {
                 String key = value_to_key(down);
                 if (!map.containsKey(key)) {
-                hamming_node_explored++;
-                down.parent_state = cur_state;
-                down.set_f(cur_state.g + 1);
-                
-                
+                    hamming_node_explored++;
+                    down.parent_state = cur_state;
+                    down.set_f(cur_state.g + 1);
                     q.add(down);
-                    map.put(key, down);
+                    //map.put(key, down);
                 }
             }
             if (left != null) {
                 String key = value_to_key(left);
                 if (!map.containsKey(key)) {
-                hamming_node_explored++;
-                left.parent_state = cur_state;
-                left.set_f(cur_state.g + 1);
-                
-                
+                    hamming_node_explored++;
+                    left.parent_state = cur_state;
+                    left.set_f(cur_state.g + 1);
                     q.add(left);
-                    map.put(key, left);
+                    //map.put(key, left);
                 }
             }
             if (right != null) {
                 String key = value_to_key(right);
                 if (!map.containsKey(key)) {
-                hamming_node_explored++;
-                right.parent_state = cur_state;
-                right.set_f(cur_state.g + 1);
-                
-                
+                    hamming_node_explored++;
+                    right.parent_state = cur_state;
+                    right.set_f(cur_state.g + 1);
                     q.add(right);
-                    map.put(key, right);
+                    //map.put(key, right);
                 }
             }
         }
@@ -266,20 +257,21 @@ public class N_puzzle_hamming {
         Boolean canbesolved;
         if (m % 2 == 1) {
             canbesolved = (inversions % 2 == 0);
-        }
-        else{
+        } else {
             canbesolved = ((inversions + zeropos_i) % 2 == 1);
         }
         if (canbesolved) {
             Board_State_by_hamming initstate = new Board_State_by_hamming(init_board, m, n, goal_board, blanksign);
             Board_State_by_hamming goalstate = new Board_State_by_hamming(goal_board, m, n, goal_board, blanksign);
+            long init_time = System.currentTimeMillis();
             Board_State_by_hamming ham = a_star_serach_by_hamming(initstate, goalstate);
+            init_time = System.currentTimeMillis() - init_time;
             System.out.println("Total Move(s) : " + ham.f);
             System.out.println("Node Expanded : " + hamming_node_expanded);
-            System.out.println("Node Explored : " + hamming_node_explored + "\n");
+            System.out.println("Node Explored : " + hamming_node_explored);
+            //System.out.println("Time in mili seconds: " + init_time + "\n");
             Hamming_path(initstate, ham);
-        }
-        else{
+        } else {
             System.out.println("Can't be solved.");
         }
     }
